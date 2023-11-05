@@ -22,7 +22,7 @@ void logMotionDetected(unsigned long ms)
   }
 
   // Send an update packet if we've hit a rising edge or haven't sent one recently
-  if (hitMotionSensorHighEdge || (ms - lastSentMotionDetected > 60 * 1000))
+  if (hitMotionSensorHighEdge || (ms - lastSentMotionDetected > 300))
   {
     hitMotionSensorHighEdge = false;
 
