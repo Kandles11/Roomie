@@ -185,15 +185,24 @@ const getAvailableReserve = async (req, res) => {
 
     startDateString = date + "T00:00:00.000+00:00"
     endDateString = date + "T23:59:59.000+00:00"
+    const startDate = new Date(startDateString)
+    const endDate = new Date(endDateString)
+
 
     const reservations = await Reservation.find({
         startTime: {
-            $gte: Date(startDateString),
-            $lt: Date(endDateString)
+            $gte: startDate,
+            $lt: endDate
         }
     }).sort({createdAt: -1})
 
-    console.log(reservations)
+    for (i = 0; i < reservations.length; i++)
+    {
+        available.push({room: reservations[i].room, 
+            type: 2, 
+            startTime: reservations[i].startTime, 
+            endTime: reservations[i].endTime});
+    }
 
 
 

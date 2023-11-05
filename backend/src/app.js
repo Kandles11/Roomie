@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
-const cors = require('cors')
+const cors = require('cors');
 
 const indexRouter = require('./routes/index');
 
