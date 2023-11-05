@@ -1,8 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { StyleSheet, View } from 'react-native'
+import Table from "react-table";
 
 import ReactDOM from 'react-dom/client';
+import { useState } from 'react';
+
 
 // logo
 // Newly Opened
@@ -12,9 +15,26 @@ import ReactDOM from 'react-dom/client';
 // table of values
 
 function App() {
+  const [data, setData] = useState([
+    {
+      status: true,
+      room: "1.130",
+      building: "ECSW",
+    }
+  ]);
   const open = [true];
   return (
     <div className="App">
+      <Table>
+        data = {data}
+        columns = {[
+          {
+            dataField: "room",
+            label: "Room #"
+          },
+          
+        ]}
+      </Table>
       <table>
         <tr>
           <th>Status</th>
@@ -24,14 +44,14 @@ function App() {
         <tr>
           <th>
             {open[0] == true &&
-              <div style = {[styles.OpenStatusCircle, styles.StatusCircles]}></div>
+              <div style = {styles.OpenStatusCircle}></div>
             }
             {open[0] == false &&
               <div style = {styles.ClosedStatusCircle}></div>
             }
           </th>
-          <th>1.355</th>
-          <th>ECSW</th>
+          <th style = {{textAlign: 'left'}}>1.355</th>
+          <th style = {{textAlign: 'left'}}>ECSW</th>
         </tr>
       </table>
     </div>
