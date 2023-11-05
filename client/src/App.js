@@ -1,25 +1,49 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { StyleSheet, View } from 'react-native'
+
+// logo
+// Newly Opened
+// opened boxes
+// search for room
+// sort by
+// table of values
 
 function App() {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <table>
+        <tr>
+          <th>Status</th>
+          <th>Room #</th>
+          <th>Building</th>
+        </tr>
+        <tr>
+          <th>
+            <div style = {styles.ClosedStatusCircle}></div>
+          </th>
+        </tr>
+      </table>
     </div>
   );
 }
+
+const styles = StyleSheet.create({
+
+  OpenStatusCircle: {
+    width: 10,
+    height: 10,
+    borderRadius: 150 / 2,
+    backgroundColor: '#3A9567',
+  },
+
+  ClosedStatusCircle: {
+    width: 10,
+    height: 10,
+    borderRadius: 150 / 2,
+    backgroundColor: '#D33834',
+  }
+});
 
 export default App;
