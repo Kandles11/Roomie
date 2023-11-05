@@ -12,7 +12,11 @@ const indexRouter = require('./routes/index');
 
 const errorHandler = require('./middleware/errorHandler');
 
+const sensorServer = require('./controllers/communication.js');
+sensorServer.server.init();
+
 const app = express();
+app.keepSensorServerAlive = sensorServer;
 
 app.use(cors());
 

@@ -1,0 +1,6 @@
+{
+    "webServerPort": 3000,
+    "sensors": {
+        "483FDA6799C3": "ECSW 2.115"
+    }
+}

@@ -1,6 +1,6 @@
 require('dotenv').config()
 const Reservation = require('../models/reservationModel.js')
-const SensorServer = require('./communication.js')
+const sensorServer = require('./communication.js').server
 const mongoose = require('mongoose');
 
 rooms = 
@@ -243,17 +243,17 @@ const getAvailableReserve = async (req, res) => {
     res.status(200).json(available);
 }
 
-// const getMotion = async (req, res) => {
-//     const {building} = req.params;
+const getMotion = async (req, res) => {
+    const {building} = req.params;
 
-//     SensorServer.getMotion();
+    SensorServer.getMotion();
 
-//     let motion = [];
+    let motion = [];
 
-//     motion.push({
-//         room: 
-//     })
-// }
+    //motion.push({
+    //    room: 
+    //})
+}
 
 
 

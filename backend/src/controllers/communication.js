@@ -1,6 +1,6 @@
 const net = require('net');
 
-// const config = require('../config.json');
+const config = require('../../config.json');
 
 const PacketType =
 {
@@ -165,14 +165,9 @@ class SensorServer {
     connections = {};
     #socket;
 
-    // Reference back to whole server
-    #server;
-
     #sensorData = [];
 
-    constructor(server) {
-        this.#server = server;
-
+    init() {
         this.#socket = net.createServer();
         this.#socket.on('connection', this.handleConnection.bind(this));
         this.#socket.listen(3001, () => {
@@ -190,7 +185,7 @@ class SensorServer {
 
         sensorConn.setOnBindMac((mac) => {
             console.log('Adding sensor at', mac, 'to arr');
-            connectionsTable[config['sensor'][mac]] = sensorConn;
+            connectionsTable[config['sensors'][mac]] = sensorConn;
         });
 
         conn.on('data', sensorConn.onConnData.bind(sensorConn));
@@ -222,4 +217,6 @@ class SensorServer {
     }
 }
 
-module.exports = SensorServer;
+const server = new SensorServer();
+
+module.exports = {server};
