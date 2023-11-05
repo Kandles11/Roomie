@@ -30,6 +30,7 @@ function RoomTable(){
         .catch((err) => {
             console.log("Not working");
         });
+        
     }, []);
 
     const classData = data;
