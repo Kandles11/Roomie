@@ -21,7 +21,6 @@ function App() {
           <RoomTable />
           </div>
           <div>
-            <button> Reserve</button>
           </div>
 
       </div>
