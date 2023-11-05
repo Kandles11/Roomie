@@ -168,8 +168,6 @@ const getRooms = async (req, res) => {
 const getAvailableClass = async (req, res) => {
     const {building, day} = req.params;
 
-    const roomList = await rooms.buildings[building]
-
     const apiString = "https://api.utdnebula.com/section?academic_session.name=23F"
     const buildingString = `&meetings.location.building=${building}`
     const dayString = `&meetings.meeting_days=${day}`
@@ -204,8 +202,8 @@ const getAvailableClass = async (req, res) => {
     {
         available.push({room: classes[i].meetings[0].location.room, 
             type: 1, 
-            startTime: classes[i].meetings[0].start_time.toString().substring(16,21), 
-            endTime: classes[i].meetings[0].end_time.toString().substring(16,21)});
+            startTime: classes[i].meetings[0].start_time.toString().substring(11,16), 
+            endTime: classes[i].meetings[0].end_time.toString().substring(11,16)});
     }
 
     res.status(200).json(available);
