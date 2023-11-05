@@ -75,8 +75,8 @@ class PacketParser {
 
     handleData(buf /* Buffer */) {
         if (this.#buf !== undefined) {
-            console.log('p1');
-            this.#buf.concat(buf);
+            console.log('p1', this.#buf);
+            this.#buf = buf + (this.#buf);
         } else {
             this.#buf = buf;
         }

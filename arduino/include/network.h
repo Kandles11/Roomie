@@ -57,7 +57,11 @@ char *make<PacketType::PING_RESPONSE>()
 template <>
 char *make<PacketType::MOTION_DETECTED>()
 {
-    char *w = start(PacketType::MOTION_DETECTED);
+    char *w = packetConstructBuf;
+    (*w++) = ':';
+
+    numToHex(w, (int)PacketType::MOTION_DETECTED, 2);
+    w += 2;
 
     return finish(w);
 }
@@ -68,7 +72,7 @@ void connectToServer()
     while (!reader.client.connect(SERVER_IP, SERVER_PORT))
     {
         delay(1000);
-        Serial.println("*");
+        Serial.print("*");
 
         if (loopCount++ > 10)
         {
