@@ -165,7 +165,7 @@ class SensorServer {
     connections = {};
     #socket;
 
-    #sensorData = [];
+    #sensorData = [{room: 5.111, time: Date.now}];
 
     init() {
         this.#socket = net.createServer();
