@@ -1,12 +1,8 @@
 import logo from './roomie_logo.svg';
 import './App.css';
-import React, { StyleSheet, View } from 'react-native'
-import { Table } from 'react-table';
+import React, { StyleSheet } from 'react-native'
 
-import ReactDOM from 'react-dom/client';
-import { useState, useEffect, useMemo } from 'react';
-
-import JsonDataDisplay from './RoomTable'
+import RoomTable from './RoomTable'
 
 function App() {
   return (
@@ -16,7 +12,7 @@ function App() {
           }}/>
           
           <input type = 'text' name = 'buildingSearch' value = 'Search for a building'/>
-          <JsonDataDisplay />
+          <RoomTable />
       </div>
   );
 }

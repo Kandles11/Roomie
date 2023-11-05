@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { useState, useEffect } from 'react';
-function JsonDataDisplay(){
+function RoomTable(){
     var today = new Date();
     var finalHours;
     var finalMinutes;
@@ -17,7 +17,7 @@ function JsonDataDisplay(){
     const [data, setPosts] = useState([]);
     
     var building;
-    building = "HH"
+    building = "ECSW"
     var fetchAddress = "http://localhost:4000/api/available/class/" + building + "/Tuesday";
 
     useEffect(() => {
@@ -34,55 +34,52 @@ function JsonDataDisplay(){
 
     const JsonData = data;
     const styles = StyleSheet.create({
-
         OpenStatusCircle: {
-          width: 10,
-          height: 10,
-          borderRadius: 150 / 2,
-          backgroundColor: '#3A9567',
+            width: 10,
+            height: 10,
+            borderRadius: 150 / 2,
+            backgroundColor: '#3A9567',
         },
       
         ClosedStatusCircle: {
-          width: 10,
-          height: 10,
-          borderRadius: 150 / 2,
-          backgroundColor: '#D33834',
+            width: 10,
+            height: 10,
+            borderRadius: 150 / 2,
+            backgroundColor: '#D33834',
+        },
+
+        MotionStatusCircle: {
+            width: 10,
+            height: 10,
+            borderRadius: 150/2,
+            backgroundColor: '#FAFD3A',
         }
       });
+
     const DisplayData=JsonData.map(
         (data)=>{
             return(
                 <tr>
                     <td>
-                    {(data.startTime <= time && data.endTime >= time) &&
-                        <div style = {styles.ClosedStatusCircle}></div>
-                    }
-                    {(data.startTime > time || data.endTime < time) &&
-                        <div style = {styles.OpenStatusCircle}></div>
-                    }
-                    
+                        {(data.startTime <= time && data.endTime >= time) &&
+                            <div style = {styles.ClosedStatusCircle}></div>
+                        }
+                        {(data.startTime > time || data.endTime < time) &&
+                            <div style = {styles.OpenStatusCircle}></div>
+                        }
                     </td>
                     
                     <td>{data.room}</td>
                     <td>{building}</td>
+                    <td>
+                        {(data.type == 1 && (data.startTime <= time && data.endTime >= time)) &&
+                            "Class"
+                        }
+                    </td>
                 </tr>
             )
         }
     )
-
-    //<div>{data ? <pre>{JSON.stringify(data, null, 2)}</pre> : 'Loading...'}</div>
-    //<div style = {styles.ClosedStatusCircle}></div>
-
-    /*
-    {data.status == true &&
-                        <div style = {styles.OpenStatusCircle}></div>
-                    }
-                    {data.status == false &&
-                        <div style = {styles.ClosedStatusCircle}></div>
-                    }
-                    <td>{data.room}</td>
-                    <td>{data.building}</td>
-                    */
  
     return(
         <div>
@@ -92,11 +89,11 @@ function JsonDataDisplay(){
                     <th>Status</th>
                     <th>Room #</th>
                     <th>Building</th>
+                    <th>Details</th>
                     </tr>
                 </thead>
                 <tbody>
-                 
-                    
+                
                     {DisplayData}
                     
                 </tbody>
@@ -104,6 +101,6 @@ function JsonDataDisplay(){
              
         </div>
     )
- }
+}
  
- export default JsonDataDisplay;
+export default RoomTable;
