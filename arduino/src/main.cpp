@@ -3,6 +3,7 @@
 #include "staticConfig.h"
 #include "packet.h"
 #include "network.h"
+#include "screen.h"
 
 unsigned long lastSentMotionDetected = 0;
 bool hitMotionSensorHighEdge = false;
@@ -34,8 +35,16 @@ void setup()
   Serial.begin(9600);
   Serial.println("Roomie v1.0.0");
 
-  pinMode(MOTION_SENSOR_PIN, INPUT);
+  //pinMode(MOTION_SENSOR_PIN, INPUT);
   attachInterrupt(digitalPinToInterrupt(MOTION_SENSOR_PIN), onMotionDetected, RISING);
+
+  //initScreen();
+  //printTest();
+}
+
+void loop2() {
+  Serial.print(digitalRead(MOTION_SENSOR_PIN) ? "X" : "O");
+  delay(500);
 }
 
 void loop()
@@ -45,7 +54,7 @@ void loop()
     connectToWifi();
   }
 
-  if (!reader.client.connected())
+  if (reader.client.status() == CLOSED)
   {
     connectToServer();
   }

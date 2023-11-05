@@ -1,6 +1,6 @@
 require('dotenv').config()
 const Reservation = require('../models/reservationModel.js')
-const SensorServer = require('./communication.js')
+const sensorServer = require('./communication.js').server
 const mongoose = require('mongoose');
 
 rooms = 
@@ -67,24 +67,6 @@ const getReservations = async (req, res) => {
     res.status(200).json(reservations)
 }
 
-// //get reservations on day
-// const searchReservations = async (req, res) => {
-//     const {day} = req.params;
-
-//     const startDate = day.
-
-//     if (!mongoose.Types.Date.isValid(day)) {
-//         return res.status(404).json({error: "Invalid Date"});
-//     }
-
-//     const reservations = await Reservation.find({})
-
-//     if (!reservation) {
-//         return res.status(404).json({error: "No reservation found"});
-//     }
-
-//     res.status(200).json(reservation);
-// }
 
 //get one reservation
 const getReservation = async (req, res) => {
@@ -243,17 +225,17 @@ const getAvailableReserve = async (req, res) => {
     res.status(200).json(available);
 }
 
-// const getMotion = async (req, res) => {
-//     const {building} = req.params;
+const getMotion = async (req, res) => {
+    const {building} = req.params;
 
-//     SensorServer.getMotion();
+    SensorServer.getMotion();
 
-//     let motion = [];
+    let motion = [];
 
-//     motion.push({
-//         room: 
-//     })
-// }
+    //motion.push({
+    //    room: 
+    //})
+}
 
 
 
