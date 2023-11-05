@@ -1,6 +1,6 @@
 const net = require('net');
 
-const config = require('../config.json');
+// const config = require('../config.json');
 
 const PacketType =
 {
