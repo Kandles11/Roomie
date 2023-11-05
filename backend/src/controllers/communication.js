@@ -5,17 +5,13 @@ const config = require('../config.json');
 const PacketType =
 {
     NOTHING: 0,
-    CLIENT_HELLO: 1,
-    SERVER_HELLO: 2,
-    PING_SEND: 3,
-    PING_RESPONSE: 4,
-    QUERY_VAR: 5,
-    QUERY_RESPONSE: 6,
-    INFORM_VAR: 7,
-    SET_VAR: 8,
-    MOVE_TO_SPACE: 9,
-    MOVE_TO_POS: 10,
-    DRIVE: 11,
+    PING: 1,
+    PING_RESPONSE: 2,
+    CLIENT_HELLO: 3,
+    RESTART: 4,
+    MOTION_DETECTED: 5,
+    SCREEN_SET: 6,
+    BATTERY_LEVEL: 7
 };
 
 class PacketParser {
@@ -129,6 +125,9 @@ class SensorConnection {
             this.#onBindMac(contents);
             this.connected = true;
         }
+        case PacketType.MOTION_DETECTED: {
+
+        }
         }
     }
 
@@ -169,6 +168,8 @@ class SensorServer {
     // Reference back to whole server
     #server;
 
+    #sensorData = [];
+
     constructor(server) {
         this.#server = server;
 
@@ -199,6 +200,25 @@ class SensorServer {
 
     getSensor(id) {
         return this.connections[id.toString()];
+    }
+
+    getSensorData() {
+        return this.#sensorData;
+    }
+
+    addSensorData(room) {
+        if (this.#sensorData[0].room == room)
+        {
+            this.#sensorData[0].time = Date.now;
+        } else {
+            this.#sensorData.push({room: room, type: 3, time: Date.now})
+        }
+    }
+
+    clearSensorData() {
+        if (Date.now.diff(this.#sensorData[0].time) > 630000){
+            this.#sensorData.splice(0, 1);
+        }
     }
 }
 
