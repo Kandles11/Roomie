@@ -126,7 +126,7 @@ class SensorConnection {
             this.connected = true;
         }
         case PacketType.MOTION_DETECTED: {
-
+            SensorServer.addSensorData("5.111")
         }
         }
     }
@@ -165,7 +165,8 @@ class SensorServer {
     connections = {};
     #socket;
 
-    #sensorData = [];
+    
+    #sensorData = [{room: 5.111, time: Date.now}];
 
     init() {
         this.#socket = net.createServer();
@@ -211,7 +212,7 @@ class SensorServer {
     }
 
     clearSensorData() {
-        if (Date.now.diff(this.#sensorData[0].time) > 630000){
+        if (Date.now.diff(this.#sensorData[0].time) > 1000){
             this.#sensorData.splice(0, 1);
         }
     }

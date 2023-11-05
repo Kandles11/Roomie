@@ -3,6 +3,8 @@ import './App.css';
 import React, { StyleSheet } from 'react-native'
 
 import RoomTable from './RoomTable'
+import Options from './Options';
+import SearchBar from './SearchBar';
 
 function App() {
   return (
@@ -11,8 +13,17 @@ function App() {
             height: 200,
           }}/>
           
-          <input type = 'text' name = 'buildingSearch' value = 'Search for a building'/>
+          <SearchBar />
+          <div className="center" style={{display: 'flex',
+  justifyContent: 'center'}}>
+          
+          
           <RoomTable />
+          </div>
+          <div>
+            <button> Reserve</button>
+          </div>
+
       </div>
   );
 }
@@ -31,7 +42,9 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 150 / 2,
     backgroundColor: '#D33834',
-  }
+  },
+
+
 });
 
 export default App;
