@@ -1,6 +1,6 @@
 const express = require('express');
 const {
-  getReservations, getReservation, createReservation, removeReservation, getClasses, getRooms, getAvailable
+  getReservations, getReservation, createReservation, removeReservation, getClasses, getRooms, getAvailableClass, getAvailableReserve
 } = require('../controllers/reservationController.js')
 const router = express.Router();
 
@@ -22,7 +22,9 @@ router.get('/api/classes/:building/:day', getClasses)
 
 router.get('/api/rooms/:building/', getRooms)
 
-router.get('/api/available/:building/:day', getAvailable)
+router.get('/api/available/class/:building/:day', getAvailableClass)
+
+router.get('/api/available/reserve/:building/:date', getAvailableReserve)
 
 
 

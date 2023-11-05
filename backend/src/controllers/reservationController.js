@@ -131,8 +131,8 @@ const getRooms = async (req, res) => {
     res.status(200).json(roomList);
 }
 
-//get availablity
-const getAvailable = async (req, res) => {
+//get availablity class
+const getAvailableClass = async (req, res) => {
     const {building, day} = req.params;
 
     const roomList = await rooms.buildings[building]
@@ -142,33 +142,66 @@ const getAvailable = async (req, res) => {
     const dayString = `&meetings.meeting_days=${day}`
     const requestString = apiString + buildingString + dayString
     console.log(requestString)
-    const response = await fetch(requestString, {
-        method: 'GET',
-        headers: {
-            'x-api-key' : process.env.API_KEY,
-            'Accept': 'application/json',
-        },
-      })
-
-
-    classes = await response.json();
-
-    let classesList = [];
-    for (i = 0; i < classes.data.length; i++)
+    let reponseJSON;
+    let classes = [];
+    let offset = 0;
+    do
     {
-        classesList.push(classes.data[i].meetings[0].location.room);
+        const offsetString = `&offset=${offset}`
+        console.log("run")
+        response = await fetch(requestString + offsetString, {
+            method: 'GET',
+            headers: {
+                'x-api-key' : process.env.API_KEY,
+                'Accept': 'application/json',
+            },
+          })
+    
+        responseJSON = await response.json()
+        if (responseJSON.data != null) 
+        {
+            classes = classes.concat(responseJSON.data);
+        }
+        offset += 20;
+    }
+    while (responseJSON.data != null);
+
+    let available = [];
+    for (i = 0; i < classes.length; i++)
+    {
+        available.push({room: classes[i].meetings[0].location.room, 
+            type: 1, 
+            startTime: classes[i].meetings[0].start_time, 
+            endTime: classes[i].meetings[0].end_time});
     }
 
-    let available;
-
-    for(i = 0; i < rooms.length; i++)
-    {
-        
-    }
-
-
-    res.status(200).json(roomList);
+    res.status(200).json(available);
 }
+
+const getAvailableReserve = async (req, res) => {
+    const {building, date} = req.params;
+
+    let available =[];
+
+    startDateString = date + "T00:00:00.000+00:00"
+    endDateString = date + "T23:59:59.000+00:00"
+
+    const reservations = await Reservation.find({
+        startTime: {
+            $gte: Date(startDateString),
+            $lt: Date(endDateString)
+        }
+    }).sort({createdAt: -1})
+
+    console.log(reservations)
+
+
+
+    res.status(200).json(reservations);
+}
+
+
+
 
 module.exports = {
     getReservations,
@@ -177,6 +210,7 @@ module.exports = {
     removeReservation,
     getClasses,
     getRooms,
-    getAvailable
+    getAvailableClass,
+    getAvailableReserve
 }
 
