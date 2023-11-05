@@ -32,40 +32,7 @@ function RoomTable(){
         });
     }, []);
 
-    const classData = data;
-    let roomList = [];
-    let classAvail = [];
-
-    for (let i = 0; i < classData.length; i++)
-    {
-        if (!roomList.includes(classData[i].room))
-        {
-            roomList.push(classData[i].room);
-            let availStatus = (classData[i].startTime <= time && classData[i].endTime >= time) ? 1 : 0;
-            classAvail.push({room: classData[i].room, type: availStatus});
-        }
-        else
-        {
-            let replacedClassIndex = classAvail.findIndex(i => i.room == classData[i] && i.type == 0);
-            if (replacedClassIndex != -1)
-            {
-                classAvail[replacedClassIndex].type = (classData[i].startTime <= time && classData[i].endTime >= time) ? 1 : 0;
-            } 
-        }
-    }
-
-    console.log(classAvail);
-
-
-
-
-
-
-
-
-
-
-
+    const JsonData = data;
     const styles = StyleSheet.create({
         OpenStatusCircle: {
             width: 10,
@@ -89,15 +56,15 @@ function RoomTable(){
         }
       });
 
-    const DisplayData=classAvail.map(
+    const DisplayData=JsonData.map(
         (data)=>{
             return(
                 <tr>
                     <td>
-                        {(data.type == 1) &&
+                        {(data.startTime <= time && data.endTime >= time) &&
                             <div style = {styles.ClosedStatusCircle}></div>
                         }
-                        {(data.type == 0) &&
+                        {(data.startTime > time || data.endTime < time) &&
                             <div style = {styles.OpenStatusCircle}></div>
                         }
                     </td>
@@ -105,7 +72,7 @@ function RoomTable(){
                     <td>{data.room}</td>
                     <td>{building}</td>
                     <td>
-                        {(data.type == 1) &&
+                        {(data.type == 1 && (data.startTime <= time && data.endTime >= time)) &&
                             "Class"
                         }
                     </td>
