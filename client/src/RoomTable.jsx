@@ -12,10 +12,11 @@ function RoomTable() {
         finalMinutes = "0" + today.getMinutes().toString();
     }
     var time = finalHours + ":" + finalMinutes;
-    var time = "10:45";
+    var time = "11:15";
     console.log("Time: " + time);
     const [data, setPosts] = useState([]);
     const [resData, setPostsR] = useState([]);
+    const [motData, setPostsM] = useState([]);
 
 
     var building;
@@ -43,10 +44,22 @@ function RoomTable() {
             .catch((err) => {
                 console.log("Not working");
             });
+
+        fetch("http://localhost:4000/api/motion/ECSW", { method: "GET" })
+            .then((response) => response.json())
+            .then((motData) => {
+                console.log("MOTION DATA")
+                console.log(motData);
+                setPostsM(motData);
+            })
+            .catch((err) => {
+                console.log("Not working");
+            });
     }, []);
 
     const classData = data;
     const reserveData = resData;
+    const motionData = motData;
     let roomList = [];
     let classAvail = [];
 
@@ -76,6 +89,14 @@ function RoomTable() {
                 classAvail[replacedClassIndex].type = (reserveData[i].startTime <= time && reserveData[i].endTime >= time) ? 1 : 0;
             }
         }
+    }
+
+
+    if (motionData[0] != null) {
+        classAvail.push({ room: motionData[0].room, type: 3 })
+    }
+    else {
+        classAvail.push({ room: "0.000", type: 0 })
     }
 
     console.log(classAvail);
@@ -109,7 +130,7 @@ function RoomTable() {
             width: 10,
             height: 10,
             borderRadius: 150 / 2,
-            backgroundColor: '#FAFD3A',
+            backgroundColor: '#FFD300',
         },
 
         cell: {
@@ -126,7 +147,7 @@ function RoomTable() {
                         {(data.type == 1) &&
                             <div style={styles.ClosedStatusCircle}></div>
                         }
-                        {(data.type == 2) &&
+                        {(data.type == 3) &&
                             <div style={styles.MotionStatusCircle}></div>
                         }
                         {(data.type == 0) &&
@@ -139,6 +160,9 @@ function RoomTable() {
                     <td style={styles.row}>
                         {(data.type == 1) &&
                             "Class"
+                        }
+                        {(data.type == 3) &&
+                            "Motion Detected"
                         }
                     </td>
                 </tr>
