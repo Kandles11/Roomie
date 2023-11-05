@@ -233,12 +233,6 @@ const getMotion = async (req, res) => {
     res.status(200).json(motion);
 }
 
-const clearMotion() {
-
-    let motion = SensorServer.clearSensorData();
-
-    res.status(200).json(motion);
-}
 
 
 
@@ -256,6 +250,5 @@ module.exports = {
     getAvailableClass,
     getAvailableReserve,
     getMotion,
-    clearMotion
 }
 

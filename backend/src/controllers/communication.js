@@ -212,21 +212,29 @@ class SensorServer {
         {
             if (this.#sensorData[0].room == room)
             {
-                this.#sensorData[0].time = Date.now;
+                this.#sensorData[0].time = Date.now();
+                this.#sensorData[0].room = "2.115";
             }
             else {
-                this.#sensorData.push({room: room, type: 3, time: Date.now})
+                this.#sensorData.push({room: room, type: 3, time: Date.now()})
             }
         }
          else {
-            this.#sensorData.push({room: room, type: 3, time: Date.now})
+            this.#sensorData.push({room: "2.115", type: 3, time: Date.now()})
         }
     }
 
     clearSensorData() {
-        if (Date.now.diff(this.#sensorData[0].time) > 1000){
-            this.#sensorData.splice(0, 1);
+        if (this.#sensorData[0] != null)
+        {
+            console.log(this.#sensorData[0].room)
+        if (Date.now() -this.#sensorData[0].time > 1000){
+            this.#sensorData = []
+            console.log("i made it in! ")
+
         }
+    }
+
     }
 }
 
