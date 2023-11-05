@@ -20,7 +20,40 @@ rooms =
             "1.440",
             "1.365",
             "1.355",
-            "1.315"
+            "1.315",
+            "2.100",
+            "2.150",
+            "2.415",
+            "2.164",
+            "2.160",
+            "2.410",
+            "2.430",
+            "2.430A",
+            "2.445",
+            "2.455",
+            "2.440",
+            "2.450",
+            "2.460",
+            "2.470",
+            "2.475",
+            "2.375",
+            "2.369",
+            "2.475A",
+            "2.355",
+            "2.355",
+            "2.325",
+            "2.315A",
+            "2.309",
+            "2.315",
+            "2.305",
+            "2.336",
+            "2.330",
+            "2.250",
+            "2.210",
+            "2.125",
+            "2.115"
+
+
         ]
     }
 }
@@ -171,8 +204,8 @@ const getAvailableClass = async (req, res) => {
     {
         available.push({room: classes[i].meetings[0].location.room, 
             type: 1, 
-            startTime: classes[i].meetings[0].start_time, 
-            endTime: classes[i].meetings[0].end_time});
+            startTime: classes[i].meetings[0].start_timetoString().substring(16,21), 
+            endTime: classes[i].meetings[0].end_timetoString().substring(16,21)});
     }
 
     res.status(200).json(available);
@@ -200,13 +233,13 @@ const getAvailableReserve = async (req, res) => {
     {
         available.push({room: reservations[i].room, 
             type: 2, 
-            startTime: reservations[i].startTime, 
-            endTime: reservations[i].endTime});
+            startTime: reservations[i].startTime.toString().substring(16,21), 
+            endTime: reservations[i].endTime.toString().substring(16,21)});
     }
 
 
 
-    res.status(200).json(reservations);
+    res.status(200).json(available);
 }
 
 

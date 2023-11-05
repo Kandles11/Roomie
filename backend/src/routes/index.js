@@ -27,7 +27,4 @@ router.get('/api/available/class/:building/:day', getAvailableClass)
 router.get('/api/available/reserve/:building/:date', getAvailableReserve)
 
 
-
-
-
 module.exports = router;
