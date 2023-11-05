@@ -110,14 +110,19 @@ function RoomTable() {
             height: 10,
             borderRadius: 150 / 2,
             backgroundColor: '#FAFD3A',
+        },
+
+        cell: {
+            padding: "12px",
+            // margin: 20
         }
     });
 
     const DisplayData = classAvail.map(
         (data) => {
             return (
-                <tr>
-                    <td>
+                <tr >
+                    <td style={styles.cell}>
                         {(data.type == 1) &&
                             <div style={styles.ClosedStatusCircle}></div>
                         }
@@ -129,9 +134,9 @@ function RoomTable() {
                         }
                     </td>
 
-                    <td>{data.room}</td>
-                    <td>{building}</td>
-                    <td>
+                    <td style={styles.row}>{data.room}</td>
+                    <td style={styles.row}>{building}</td>
+                    <td style={styles.row}>
                         {(data.type == 1) &&
                             "Class"
                         }
@@ -143,9 +148,9 @@ function RoomTable() {
 
     return (
         <div>
-            <table class="table table-striped">
+            <table class="table table-striped" >
                 <thead>
-                    <tr>
+                    <tr style={{ margin: "30px" }}>
                         <th>Status</th>
                         <th>Room #</th>
                         <th>Building</th>

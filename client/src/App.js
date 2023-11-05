@@ -14,8 +14,16 @@ function App() {
           }}/>
           
           <SearchBar />
+          <div className="center" style={{display: 'flex',
+  justifyContent: 'center'}}>
+          
           
           <RoomTable />
+          </div>
+          <div>
+            <button> Reserve</button>
+          </div>
+
       </div>
   );
 }
@@ -34,7 +42,9 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 150 / 2,
     backgroundColor: '#D33834',
-  }
+  },
+
+
 });
 
 export default App;

@@ -4,7 +4,7 @@ const SearchBar = () => {
   const [value, setValue] = useState('');
 
   return (
-    <div>
+    <div style={{ margin: 20 }}>
       <input
         type="text"
         placeholder="Search for a Building"
