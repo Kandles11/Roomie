@@ -3,6 +3,8 @@ import './App.css';
 import React, { StyleSheet } from 'react-native'
 
 import RoomTable from './RoomTable'
+import Options from './Options';
+import SearchBar from './SearchBar';
 
 function App() {
   return (
@@ -11,7 +13,8 @@ function App() {
             height: 200,
           }}/>
           
-          <input type = 'text' name = 'buildingSearch' value = 'Search for a building'/>
+          <SearchBar />
+          
           <RoomTable />
       </div>
   );
