@@ -96,7 +96,7 @@ function RoomTable() {
         classAvail.push({ room: motionData[0].room, type: 3 })
     }
     else {
-        classAvail.push({ room: "0.000", type: 0 })
+        classAvail.push({ room: "2.115", type: 0 })
     }
 
     console.log(classAvail);
