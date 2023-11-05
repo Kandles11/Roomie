@@ -169,7 +169,7 @@ class SensorServer {
     #socket;
 
     
-    #sensorData = [{room: 5.111, time: Date.now}];
+    #sensorData = [];
 
     init() {
         this.#socket = net.createServer();
@@ -206,10 +206,17 @@ class SensorServer {
     }
 
     addSensorData(room) {
-        if (this.#sensorData[0].room == room)
+        if (this.#sensorData[0] != null)
         {
-            this.#sensorData[0].time = Date.now;
-        } else {
+            if (this.#sensorData[0].room == room)
+            {
+                this.#sensorData[0].time = Date.now;
+            }
+            else {
+                this.#sensorData.push({room: room, type: 3, time: Date.now})
+            }
+        }
+         else {
             this.#sensorData.push({room: room, type: 3, time: Date.now})
         }
     }

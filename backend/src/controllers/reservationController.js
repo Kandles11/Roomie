@@ -230,8 +230,25 @@ const getMotion = async (req, res) => {
 
     let motion = SensorServer.getSensorData();
 
+    const getMotion = async (req, res) => {
+    const {building} = req.params;
+
+    let motion = SensorServer.getSensorData();
+
     res.status(200).json(motion);
 }
+
+    res.status(200).json(motion);
+}
+
+const clearMotion() {
+
+    let motion = SensorServer.clearSensorData();
+
+    res.status(200).json(motion);
+}
+
+
 
 
 
@@ -246,6 +263,7 @@ module.exports = {
     getRooms,
     getAvailableClass,
     getAvailableReserve,
-    getMotion
+    getMotion,
+    clearMotion
 }
 
