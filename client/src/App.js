@@ -2,6 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import React, { StyleSheet, View } from 'react-native'
 
+import ReactDOM from 'react-dom/client';
+
 // logo
 // Newly Opened
 // opened boxes
@@ -10,7 +12,7 @@ import React, { StyleSheet, View } from 'react-native'
 // table of values
 
 function App() {
-
+  const open = [true];
   return (
     <div className="App">
       <table>
@@ -21,8 +23,15 @@ function App() {
         </tr>
         <tr>
           <th>
-            <div style = {styles.ClosedStatusCircle}></div>
+            {open[0] == true &&
+              <div style = {[styles.OpenStatusCircle, styles.StatusCircles]}></div>
+            }
+            {open[0] == false &&
+              <div style = {styles.ClosedStatusCircle}></div>
+            }
           </th>
+          <th>1.355</th>
+          <th>ECSW</th>
         </tr>
       </table>
     </div>
