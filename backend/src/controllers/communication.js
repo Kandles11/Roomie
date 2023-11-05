@@ -96,9 +96,12 @@ class SensorConnection {
 
     connected;
 
-    constructor(conn) {
+    addSensorData;
+
+    constructor(conn, callback) {
         this.#conn = conn;
         this.#parser = new PacketParser(this.handlePacket.bind(this));
+        this.addSensorData = callback;
     }
 
     onConnData(data) {
@@ -126,7 +129,7 @@ class SensorConnection {
             this.connected = true;
         }
         case PacketType.MOTION_DETECTED: {
-            SensorServer.addSensorData("5.111")
+            this.addSensorData(config['sensors']['mac'])
         }
         }
     }
@@ -181,12 +184,12 @@ class SensorServer {
         const remoteAddress = conn.remoteAddress + ':' + conn.remotePort;
         console.log('new client connection from %s', remoteAddress);
 
-        const sensorConn = new SensorConnection(conn);
+        const sensorConn = new SensorConnection(conn, (data) => this.addSensorData(data));
         const connectionsTable = this.connections;
 
         sensorConn.setOnBindMac((mac) => {
             console.log('Adding sensor at', mac, 'to arr');
-            connectionsTable[config['sensors'][mac]] = sensorConn;
+            connectionsTable[config['sensors']['mac']] = sensorConn;
         });
 
         conn.on('data', sensorConn.onConnData.bind(sensorConn));
