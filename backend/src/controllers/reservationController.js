@@ -235,10 +235,21 @@ const getAvailableReserve = async (req, res) => {
             endTime: reservations[i].endTime.toString().substring(16,21)});
     }
 
-
-
     res.status(200).json(available);
 }
+
+const getMotion = async (req, res) => {
+    const {building} = req.params;
+
+    
+
+    let motion = [];
+
+    motion.push({
+        room: 
+    })
+}
+
 
 
 
