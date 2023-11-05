@@ -204,8 +204,8 @@ const getAvailableClass = async (req, res) => {
     {
         available.push({room: classes[i].meetings[0].location.room, 
             type: 1, 
-            startTime: classes[i].meetings[0].start_timetoString().substring(16,21), 
-            endTime: classes[i].meetings[0].end_timetoString().substring(16,21)});
+            startTime: classes[i].meetings[0].start_time.toString().substring(16,21), 
+            endTime: classes[i].meetings[0].end_time.toString().substring(16,21)});
     }
 
     res.status(200).json(available);
