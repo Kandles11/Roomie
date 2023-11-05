@@ -67,24 +67,6 @@ const getReservations = async (req, res) => {
     res.status(200).json(reservations)
 }
 
-// //get reservations on day
-// const searchReservations = async (req, res) => {
-//     const {day} = req.params;
-
-//     const startDate = day.
-
-//     if (!mongoose.Types.Date.isValid(day)) {
-//         return res.status(404).json({error: "Invalid Date"});
-//     }
-
-//     const reservations = await Reservation.find({})
-
-//     if (!reservation) {
-//         return res.status(404).json({error: "No reservation found"});
-//     }
-
-//     res.status(200).json(reservation);
-// }
 
 //get one reservation
 const getReservation = async (req, res) => {
