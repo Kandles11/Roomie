@@ -230,14 +230,6 @@ const getMotion = async (req, res) => {
 
     let motion = SensorServer.getSensorData();
 
-    const getMotion = async (req, res) => {
-    const {building} = req.params;
-
-    let motion = SensorServer.getSensorData();
-
-    res.status(200).json(motion);
-}
-
     res.status(200).json(motion);
 }
 

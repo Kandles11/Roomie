@@ -178,6 +178,8 @@ class SensorServer {
             console.log('TCP sensor server listening to %j',
                 this.#socket.address());
         });
+
+        setInterval(() => this.clearSensorData(), 1000);
     }
 
     handleConnection(conn) {
